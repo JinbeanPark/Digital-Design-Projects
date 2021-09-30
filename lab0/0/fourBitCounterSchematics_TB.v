@@ -25,17 +25,13 @@
 module fourBitCounterSchematics_TB;
  
     reg clk_T, rst_T;
-    reg [3:0] a_T;
- 
-    reg a0_T;
-    reg a1_T;
-    reg a2_T;
-    reg a3_T;
+    wire [3:0] a;
+
  
     fourBitCounterSchematics UUT (
         .clk(clk_T),
         .rst(rst_T),
-        .a(a_T)
+        .a(a)
     );
 
  

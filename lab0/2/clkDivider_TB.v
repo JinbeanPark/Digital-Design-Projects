@@ -26,10 +26,12 @@ module clkDivider_TB;
  
     reg clk_T;
     reg rst_T;
+    wire led_T;
  
     clkDivider UUT (
         .clk(clk_T),
-        .rst(rst_T)
+        .rst(rst_T),
+        .led(led_T)
     );
  
     initial begin

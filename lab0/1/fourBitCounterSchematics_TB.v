@@ -24,33 +24,32 @@
  
 module fourBitCounterSchematics_TB;
  
-    reg clk_T, rst_T;
-    reg [3:0] a_T;
+    reg clk, rst;
  
-    reg a0_T;
-    reg a1_T;
-    reg a2_T;
-    reg a3_T;
+    wire a0;
+    wire a1;
+    wire a2;
+    wire a3;
  
     fourBitCounterSchematics UUT (
-        .clk(clk_T),
-        .rst(rst_T),
-        .a0(a0_T),
-        .a1(a1_T),
-        .a2(a2_T),
-        .a3(a3_T)
+        .clk(clk),
+        .rst(rst),
+        .a0(a0),
+        .a1(a1),
+        .a2(a2),
+        .a3(a3)
     );
  
  
     initial begin
-        clk_T <= 1'b0;
-        rst_T <= 1'b1;
+        clk <= 1'b0;
+        rst <= 1'b1;
         #30;
-        rst_T <= 1'b0;
+        rst <= 1'b0;
     end
  
     always begin
-        clk_T = ~clk_T;
+        clk = ~clk;
         #5;
     end
  
