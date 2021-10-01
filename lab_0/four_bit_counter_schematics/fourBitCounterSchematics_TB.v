@@ -21,7 +21,10 @@
 // Additional Comments:
 // 
 ////////////////////////////////////////////////////////////////////////////////
- 
+/*test case where when initialized, we will set clk to 0 and rst to 1, wait 30 ns, then set rst to 0.
+afterwards, the clk signal will pulse every 5 nanoseconds (turn on for 5 ns, then off for 5 ns)
+functionally the same test bench as modern
+*/
 module fourBitCounterSchematics_TB;
  
     reg clk, rst;
