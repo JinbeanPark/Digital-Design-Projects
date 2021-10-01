@@ -22,13 +22,13 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
  
-module fourBitCounterSchematics_TB;
+module fourBitCounterModern_TB;
  
     reg clk_T, rst_T;
     wire [3:0] a;
 
  
-    fourBitCounterSchematics UUT (
+    fourBitCounterModern UUT (
         .clk(clk_T),
         .rst(rst_T),
         .a(a)

@@ -1,4 +1,4 @@
-module fourBitCounterSchematics (clk, rst, a);
+module fourBitCounterModern (clk, rst, a);
  
     input clk, rst;
     output reg [3:0] a;
