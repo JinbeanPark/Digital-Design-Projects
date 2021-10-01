@@ -21,7 +21,7 @@
 // Additional Comments:
 // 
 ////////////////////////////////////////////////////////////////////////////////
- 
+//This simulates the clock on the board
 module clkDivider_TB;
  
     reg clk_T;
