@@ -25,7 +25,7 @@
 module float_TB;
 
 	// Inputs
-	reg [10:0] sign_result;
+	reg [11:0] sign_result;
 	reg clk;
 
 	// Outputs
@@ -51,7 +51,7 @@ module float_TB;
 		#100;
         
 		// Add stimulus here
-		sign_result = 11'b00100000000;
+		sign_result = 12'b000100000000;
 		end
 	always #5 clk = ~clk;
 endmodule

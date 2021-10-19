@@ -26,7 +26,7 @@ fifth,
 clk
     );
 
-input [10:0] sign_result; 
+input [11:0] sign_result; 
 output reg [2:0] exponent;
 output reg [3:0] significand;
 input clk;

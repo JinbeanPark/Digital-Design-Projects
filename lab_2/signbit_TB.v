@@ -29,7 +29,7 @@ module signbit_TB;
 	reg clk;
 
 	// Outputs
-	wire [10:0] result;
+	wire [11:0] result;
 	wire sign;
 
 	// Instantiate the Unit Under Test (UUT)
