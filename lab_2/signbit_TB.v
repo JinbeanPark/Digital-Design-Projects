@@ -1,3 +1,5 @@
+
+   
 `timescale 1ns / 1ps
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +31,7 @@ module signbit_TB;
 	reg clk;
 
 	// Outputs
-	wire [11:0] result;
+	wire [10:0] result;
 	wire sign;
 
 	// Instantiate the Unit Under Test (UUT)
@@ -55,4 +57,3 @@ module signbit_TB;
 	always #5 clk = ~clk;
 	
 endmodule
-
