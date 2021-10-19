@@ -36,7 +36,7 @@ integer j;
 
 always @(posedge clk)
 begin
-	i=10;
+	i=11;
 	j=0;
 	exponent = 8;
 	while(sign_result[i] == 0 && i > 3)
