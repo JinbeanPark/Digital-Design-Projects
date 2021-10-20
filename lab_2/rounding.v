@@ -39,10 +39,19 @@ begin
 	if(fifth == 1'b1)
 	begin
 		temp = significand + 1;
-		if(temp == 4'b0000)
+		//if(temp == 4'b0000)
+		if(temp == 5'b10000)
 		begin
-			rounded_float = significand >> 1;
-			rounded_exp = exponent + 1;
+			if (exponent == 3'b111)
+				begin
+					rounded_float = significand;
+					rounded_exp = exponent;
+				end
+			else
+				begin
+					rounded_float = significand >> 1;
+					rounded_exp = exponent + 1;
+				end
 		end
 		else
 		begin
