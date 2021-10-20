@@ -26,7 +26,7 @@ module signbit(
     );
 
 //output
-output reg [10:0] sign_result;
+output reg [11:0] sign_result;
 output reg sign;
 //input
 input [11:0] float;
@@ -37,11 +37,11 @@ begin
 	sign = float[11];
 	if(sign)
 		begin
-			sign_result = ~float[10:0]+1;
+			sign_result = ~float[11:0]+1;
 		end
 	else
 		begin
-			sign_result = float[10:0];
+			sign_result = float[11:0];
 		end
 end
 
