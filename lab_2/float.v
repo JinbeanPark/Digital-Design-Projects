@@ -50,9 +50,11 @@ begin
 		i = i - 1;
 		j = j + 1;
 	end
-	if(i-4 >= 0) 
+	//if(i-4 >= 0)
+	if (i >= 0)
 	begin
-		fifth = sign_result[i-4];
+		//fifth = sign_result[i-4];
+		fifth = sign_result[i];
 	end
 	else
 	begin
