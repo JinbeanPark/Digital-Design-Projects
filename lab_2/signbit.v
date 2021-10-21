@@ -37,7 +37,16 @@ begin
 	sign = float[11];
 	if(sign)
 		begin
-			sign_result = ~float[11:0]+1;
+			if(float[10:0] != 11'b0000000000)
+			//check if overflow from rounding
+			begin
+				sign_result = ~float[11:0]+1;
+			end
+			else
+			//case of 12'b100000000000
+			begin
+				sign_result = 12'b011111111111;
+			end
 		end
 	else
 		begin

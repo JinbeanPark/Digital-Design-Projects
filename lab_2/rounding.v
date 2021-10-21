@@ -37,10 +37,12 @@ integer temp;
 always @(posedge clk)
 begin
 	if(fifth == 1'b1)
+	//rounding up
 	begin
 		temp = significand + 1;
 		//if(temp == 4'b0000)
 		if(temp == 5'b10000)
+		//check overflow
 		begin
 			if (exponent == 3'b111)
 				begin
@@ -60,6 +62,7 @@ begin
 		end
 	end
 	else
+	//round down (keep current calculated values)
 	begin
 		rounded_float = significand;
 		rounded_exp = exponent;
