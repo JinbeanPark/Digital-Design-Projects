@@ -51,7 +51,7 @@ begin
 				end
 			else
 				begin
-					rounded_float = significand >> 1;
+					rounded_float = 4'b1000;
 					rounded_exp = exponent + 1;
 				end
 		end
