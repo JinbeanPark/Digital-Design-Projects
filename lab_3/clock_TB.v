@@ -38,12 +38,13 @@ module clock_TB;
 		.countclk (countclk),
 		.adjclk (adjclk),
 		.fastclk (fastclk)
-		
+	
 	);
 
 	initial begin
 		// Initialize Inputs
 		clk = 0;
+
 		// Wait 100 ns for global reset to finish
 		#100;
         
@@ -59,6 +60,7 @@ module clock_TB;
 			$display("ping");
 		end
 	end */
+
       
 endmodule
 
