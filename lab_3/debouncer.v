@@ -21,29 +21,41 @@
 module debouncer(
 clk,
 rst,
-btn_val,
+btn0,
+btn1,
+sw,
+step_d_btn0,
+step_d_btn1,
+step_d_sw,
+btn0_val,
+btn1_val,
 switch_val
     );
 input clk; //clk in this case is slower than master clock
 input rst;
-input btn;
+input btn0;
+input btn1;
 input sw;
-reg [2:0] step_d_btn;
+reg [2:0] step_d_btn0;
+reg [2:0] step_d_btn1;
 reg [2:0] step_d_sw;
-output reg btn_val;
+output reg btn0_val;
+output reg btn1_val;
 output reg switch_val;
 
 
    always @ (posedge clk)
      if (rst)
        begin
-          step_d_btn[2:0]  <= 0;
+          step_d_btn0[2:0]  <= 0;
+			 step_d_btn1[2:0]  <= 0;
 			 step_d_sw[2:0]  <= 0;
        end
      else if (clk_en)
        begin
-          step_d_btn[2:0]  <= {btnS, step_d[2:1]};
-			 step_d_sw[2:0]  <= {btnS, step_d[2:1]};
+          step_d_btn0[2:0]  <= {btnS, step_d_btn0[2:1]};
+			 step_d_btn1[2:0]  <= {btnS, step_d_btn1[2:1]};
+			 step_d_sw[2:0]  <= {btnS, step_d_sw[2:1]};
        end
 
    always @ (posedge clk)
@@ -54,7 +66,8 @@ output reg switch_val;
 	  end
      else
 	  begin
-       btn_val <= ~step_d_btn[0] & step_d_btn[1] & clk;
+       btn0_val <= ~step_d_btn0[0] & step_d_btn0[1] & clk;
+		 btn1_val <= ~step_d_btn1[0] & step_d_btn1[1] & clk;
 		 switch_val <= ~step_d_sw[0] & step_d_sw[1] & clk;
 	  end
 
