@@ -19,13 +19,18 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module counter(
-clk,
+countclk,
+adjclk,
 mincounter,
-seccounter
+seccounter,
+sel,
+adj
     );
 output reg [5:0] mincounter;
 output reg [5:0] seccounter;
 input clk;
+input adj;
+input sel;
 initial
 begin
 	mincounter = 0;
@@ -33,15 +38,36 @@ begin
 end
 
 
-always @(posedge clk)
+always @(posedge countclk)
 begin
-	seccounter = seccounter + 1;
-	if (seccounter % 60 == 0)
+	if (adj == 0)
 	begin
-		seccounter = 0;
-		mincounter = mincounter + 1;
+		seccounter = seccounter + 1;
+		if (seccounter % 60 == 0)
+		begin
+			seccounter = 0;
+			mincounter = mincounter + 1;
+		end
 	end
-	
+end
+always @(posedge adjclk)
+begin
+	if (adj == 1)
+	begin
+		if (sel == 1)
+		begin
+			seccounter = seccounter + 1;
+			if (seccounter % 60 == 0)
+			begin
+				seccounter = 0;
+				mincounter = mincounter + 1;
+			end
+		end
+		else
+		begin
+			mincounter = mincounter + 1; //no handling for overflow
+		end
+	end
 end
 
 
