@@ -24,13 +24,23 @@ adjclk,
 mincounter,
 seccounter,
 sel,
-adj
+adj/*,
+btn0_val,
+btn1_val,
+sw_val
+*/
     );
 output reg [5:0] mincounter;
 output reg [5:0] seccounter;
 input clk;
 input adj;
 input sel;
+/*
+input btn0_val;
+input btn1_val;
+input sw_val;
+*/
+
 initial
 begin
 	mincounter = 0;
