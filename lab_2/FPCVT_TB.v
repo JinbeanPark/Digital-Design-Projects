@@ -5,7 +5,7 @@
 // Engineer:
 //
 // Create Date:   13:24:34 10/19/2021
-// Design Name:   mainModule
+// Design Name:   FPCVT
 // Module Name:   C:/Project/lab2/mainModule_TB.v
 // Project Name:  lab2
 // Target Device:  
@@ -22,18 +22,21 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module mainModule_TB;
+module FPCVT_TB;
 	// Inputs
 	reg clk;
 	reg [11:0] value;
 	// Outputs
-	wire [7:0] floating_rep;
+	wire sign;
+	wire [2:0] exp;
+	wire [3:0] float;
 	integer num;
 	// Instantiate the Unit Under Test (UUT)
-	mainModule mainModule_ (
-		.two_comp				(value),
-		.clk						(clk),
-		.float_rep				(floating_rep)
+	FPCVT FPCVT_ (
+		.D							(value),
+		.S							(sign),
+		.E							(exp),
+		.F							(float)
 	);
 	/*
 	mainModule mainModule_ (
@@ -68,7 +71,7 @@ begin
 		value = instructs[num];
 		// Add stimulus here
 		#100;
-		$display("Line %d: \n %b two's component \n %b float", num, value, floating_rep);
+		$display("Line %d: \n %b two's component \n %b %b %b float", num, value, sign, exp, float);
 		num = num + 1;
 	end
 end

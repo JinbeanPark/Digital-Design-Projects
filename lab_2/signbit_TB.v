@@ -28,25 +28,22 @@ module signbit_TB;
 
 	// Inputs
 	reg [11:0] float;
-	reg clk;
 
 	// Outputs
-	wire [10:0] result;
+	wire [11:0] result;
 	wire sign;
 
 	// Instantiate the Unit Under Test (UUT)
 	signbit uut (
 		.sign_result(result), 
 		.sign(sign), 
-		.float(float), 
-		.clk(clk)
-	);
+		.float(float)
+		);
 
 	initial 
 		begin
 		// Initialize Inputs
 		float = 0;
-		clk = 0;
 		// Wait 100 ns for global reset to finish
 		#100;
         
@@ -54,6 +51,5 @@ module signbit_TB;
 		float = 12'b100100000000;
 		$display ("%b is float, %b is result, %b is sign", float, result, sign);
 		end
-	always #5 clk = ~clk;
 	
 endmodule

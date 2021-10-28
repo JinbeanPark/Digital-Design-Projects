@@ -21,18 +21,15 @@
 module signbit(
 	sign_result,
 	sign,
-	float,
-	clk
-    );
+	float   
+);
 
 //output
 output reg [11:0] sign_result;
 output reg sign;
 //input
 input [11:0] float;
-input clk;
-
-always @ (posedge clk)
+always @*
 begin
 	sign = float[11];
 	if(sign)
@@ -53,6 +50,4 @@ begin
 			sign_result = float[11:0];
 		end
 end
-
-
 endmodule

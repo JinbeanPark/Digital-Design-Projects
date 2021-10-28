@@ -22,19 +22,17 @@ module float(
 sign_result,
 exponent,
 significand,
-fifth,
-clk
+fifth
     );
 
 input [11:0] sign_result; 
 output reg [2:0] exponent;
 output reg [3:0] significand;
-input clk;
 integer i;
 output reg fifth;
 integer j;
 
-always @(posedge clk)
+always @*
 begin
 	i=11;
 	j=0;
@@ -61,5 +59,4 @@ begin
 	fifth = 0;
 	end
 end
-
 endmodule

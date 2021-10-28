@@ -23,18 +23,16 @@ exponent,
 significand,
 fifth,
 rounded_float,
-rounded_exp,
-clk
+rounded_exp
     );
 input [2:0] exponent;
 input [3:0] significand;
 input fifth;
-input clk;
 output reg [3:0] rounded_float;
 output reg [2:0] rounded_exp;
 integer temp;
 
-always @(posedge clk)
+always @*
 begin
 	if(fifth == 1'b1)
 	//rounding up

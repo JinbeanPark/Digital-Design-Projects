@@ -5,7 +5,7 @@
 // 
 // Create Date:    12:57:48 10/19/2021 
 // Design Name: 
-// Module Name:    mainModule 
+// Module Name:    FPCVT 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,15 +18,17 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module mainModule(
-float_rep,
-two_comp,
-clk
-    );
+module FPCVT(
+S,
+E,
+F,
+D    
+);
 
-input [11:0] two_comp;
-input clk;
-output reg [7:0] float_rep;
+input [11:0] D;
+output reg S;
+output reg [2:0] E;
+output reg [3:0] F;
 integer test;
 
 //signbit
@@ -44,10 +46,7 @@ signbit signBit_ (// Outputs
              .sign_result                  (sign_sign_result[11:0]),
              .sign               			 (sign_sign),
              // Inputs
-             .float                   		 (two_comp[11:0]),
-             /*AUTOINST*/
-             // Inputs
-				 .clk									 (clk)
+             .float                   		 (D[11:0])
 				 );
 
 
@@ -57,10 +56,7 @@ float float_ (// Outputs
              .significand               (float_significand[3:0]),
 				 .fifth							 (float_fifth),
              // Inputs
-             .sign_result               (sign_sign_result[11:0]),
-             /*AUTOINST*/
-             // Inputs
-             .clk                       (clk)
+             .sign_result               (sign_sign_result[11:0])
 				 );
 				 
 rounding rounding_ (
@@ -70,14 +66,12 @@ rounding rounding_ (
 				 .fifth							 (float_fifth),
              // Outputs
              .rounded_float                   (round_rounded_float[3:0]),
-				 .rounded_exp					 (round_rounded_exp[2:0]),
-             /*AUTOINST*/
-             // Inputs
-             .clk                       (clk)
+				 .rounded_exp					 (round_rounded_exp[2:0])
 				 );
-
-always @(posedge clk)
+always @*
 begin
-	float_rep = {sign_sign, round_rounded_exp, round_rounded_float};
+	S = sign_sign;
+	E = round_rounded_exp;
+	F = round_rounded_float;
 end
 endmodule

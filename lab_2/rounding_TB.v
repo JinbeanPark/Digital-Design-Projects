@@ -28,7 +28,6 @@ module rounding_TB;
 	reg [2:0] exponent;
 	reg [3:0] significand;
 	reg fifth;
-	reg clk;
 
 	// Outputs
 	wire [3:0] rounded_float;
@@ -40,8 +39,7 @@ module rounding_TB;
 		.significand(significand), 
 		.fifth(fifth), 
 		.rounded_float(rounded_float), 
-		.rounded_exp(rounded_exp), 
-		.clk(clk)
+		.rounded_exp(rounded_exp) 
 	);
 
 	initial begin
@@ -49,7 +47,6 @@ module rounding_TB;
 		exponent = 0;
 		significand = 0;
 		fifth = 0;
-		clk = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
@@ -59,6 +56,5 @@ module rounding_TB;
 		significand = 4'b1011;
 		fifth = 1'b1;
 	end
-     always #5 clk = ~clk;
 endmodule
 

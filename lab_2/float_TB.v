@@ -26,7 +26,6 @@ module float_TB;
 
 	// Inputs
 	reg [11:0] sign_result;
-	reg clk;
 
 	// Outputs
 	wire [2:0] exponent;
@@ -38,14 +37,12 @@ module float_TB;
 		.sign_result(sign_result), 
 		.exponent(exponent), 
 		.significand(significand), 
-		.fifth(fifth), 
-		.clk(clk)
+		.fifth(fifth) 
 	);
 
 	initial begin
 		// Initialize Inputs
 		sign_result = 0;
-		clk = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
@@ -53,5 +50,4 @@ module float_TB;
 		// Add stimulus here
 		sign_result = 12'b011111111111;
 		end
-	always #5 clk = ~clk;
 endmodule
