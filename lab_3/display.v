@@ -37,6 +37,8 @@ input [5:0] mincounter;
 input [5:0] seccounter;
 output reg [3:0] anode;
 output reg [6:0] led;
+
+//in-module reg
 reg [3:0] value;
 reg [1:0] counter;
 

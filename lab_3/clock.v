@@ -30,6 +30,8 @@ output reg adjclk;
 output reg countclk;
 output reg fastclk;
 input clk;
+
+//in-module variables
 integer blinkcounter;
 integer adjcounter;
 integer countcounter;
