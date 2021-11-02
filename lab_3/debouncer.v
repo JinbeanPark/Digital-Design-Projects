@@ -103,7 +103,7 @@ reg prevAdj;
       begin
         cnt = 12'd0;
         validRstBtn = 0;
-        validPueBtn = 0;
+        //validPueBtn = 0;
       end
     end
 
