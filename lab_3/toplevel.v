@@ -21,7 +21,6 @@
 module toplevel(
 // Top level inputs
 clk,
-rst,
 pause,
 sel,
 adj,
@@ -29,10 +28,9 @@ rstBtn,
 pueBtn,
 //outputs for TB
 minutes,
-seconds,
+seconds
 );
 input clk;
-input rst;
 input pause;
 input sel;
 input adj;
@@ -89,8 +87,8 @@ counter counter_ (
 				 .seccounter(seccounter[5:0]),
 				 .sel(sel),
 				 .adj(adj),
-				 .btn0_val(btn0_val),
-				 .btn1_val(btn1_val)
+				 .btn0_val(validRstBtn),
+				 .btn1_val(validPueBtn)
 				 );
 clock clock_ (
 				 .clk(clk),

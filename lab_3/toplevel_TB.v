@@ -26,7 +26,6 @@ module toplevel_TB;
 
 	// Inputs
 	reg clk;
-	reg rst;
 	reg pause;
 	reg sel;
 	reg adj;
@@ -40,7 +39,6 @@ module toplevel_TB;
 	// Instantiate the Unit Under Test (UUT)
 	toplevel uut (
 		.clk(clk), 
-		.rst(rst), 
 		.pause(pause), 
 		.sel(sel), 
 		.adj(adj), 
@@ -52,7 +50,7 @@ module toplevel_TB;
 
 	initial
 		begin
-		rst = 1; //pretend reset
+		
 		// Initialize Inputs
 		clk = 0;
 		pause = 0;
@@ -61,13 +59,19 @@ module toplevel_TB;
 		rstBtn = 0;
 		pueBtn = 0;
 		
-		
-		rst = 0;
+		rstBtn = 1;
 		// Wait 100 ns for global reset to finish
 		#100;
-        
-		// Add stimulus here
+		rstBtn = 0; //should stop resetting, clock should start now
 		
+		#1000;
+		
+      pause = 1;
+		#1000;
+		pause = 0; //simulate pause press
+		
+		
+		#1000;
 		end
 	always #5 clk = ~clk; //simulate master clock of 100MHz
 	/*
