@@ -68,8 +68,8 @@ reg prevAdj;
           validRstBtn = rstBtn;
         else if (pueBtn == 1) 
         begin
-          validPueBtn = pueBtn;
-          $display ("pueBtn: (%d)", pueBtn);
+          validPueBtn = ~validPueBtn;
+          $display ("pueBtn: (%d)", validPueBtn);
         end
         else if (prevSel != sel)
         begin

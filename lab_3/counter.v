@@ -24,33 +24,35 @@ adjclk,
 mincounter,
 seccounter,
 sel,
-adj/*,
+adj,
 btn0_val,
 btn1_val,
-sw_val
-*/
     );
 output reg [5:0] mincounter;
 output reg [5:0] seccounter;
 input clk;
 input adj;
 input sel;
-/*
-input btn0_val;
-input btn1_val;
-input sw_val;
-*/
+input btn0_val; //reset
+input btn1_val; //pause
 
 initial
 begin
 	mincounter = 0;
 	seccounter = 0;
 end
-
+always @(posedge clk)
+begin
+	if (btn0_val == 1)
+	begin
+		mincounter = 0;
+		seccounter = 0;
+	end
+end
 
 always @(posedge countclk)
 begin
-	if (adj == 0)
+	if (adj == 0 && btn1_val == 0)
 	begin
 		seccounter = seccounter + 1;
 		if (seccounter % 60 == 0)
@@ -62,7 +64,7 @@ begin
 end
 always @(posedge adjclk)
 begin
-	if (adj == 1)
+	if (adj == 1 && btn1_val == 0)
 	begin
 		if (sel == 1)
 		begin
@@ -70,7 +72,6 @@ begin
 			if (seccounter % 60 == 0)
 			begin
 				seccounter = 0;
-				mincounter = mincounter + 1;
 			end
 		end
 		else
