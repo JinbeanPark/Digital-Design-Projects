@@ -20,55 +20,91 @@
 //////////////////////////////////////////////////////////////////////////////////
 module debouncer(
 clk,
-rst,
-btn0,
-btn1,
-sw,
-step_d_btn0,
-step_d_btn1,
-step_d_sw,
-btn0_val,
-btn1_val,
-switch_val
+rstBtn,
+pueBtn,
+sel,
+adj,
+validRstBtn,
+validPueBtn,
+validSel,
+validAdj
     );
 input clk; //clk in this case is slower than master clock
-input rst;
-input btn0;
-input btn1;
-input sw;
-reg [2:0] step_d_btn0;
-reg [2:0] step_d_btn1;
-reg [2:0] step_d_sw;
-output reg btn0_val;
-output reg btn1_val;
-output reg switch_val;
+input rstBtn;
+input pueBtn;
+input sel;
+input adj;
+output reg validRstBtn;
+output reg validPueBtn;
+output reg validSel;
+output reg validAdj;
 
+reg [11:0] cnt;
+reg regHold;
+reg prevSel;
+reg prevAdj;
+
+
+  initial 
+  begin
+    cnt = 12'b0;
+    regHold = 1'b0;
+    prevSel = sel;
+    prevAdj = adj;
+    validRstBtn = 1'b0;
+    validPueBtn = 1'b0;
+    validSel = 1'b0;
+    validAdj = 1'b0;
+  end
 
    always @ (posedge clk)
-     if (rst)
-       begin
-          step_d_btn0[2:0]  <= 0;
-			 step_d_btn1[2:0]  <= 0;
-			 step_d_sw[2:0]  <= 0;
-       end
-     else if (clk_en)
-       begin
-          step_d_btn0[2:0]  <= {btnS, step_d_btn0[2:1]};
-			 step_d_btn1[2:0]  <= {btnS, step_d_btn1[2:1]};
-			 step_d_sw[2:0]  <= {btnS, step_d_sw[2:1]};
-       end
-
-   always @ (posedge clk)
-     if (rst)
-	  begin
-       btn_val <= 1'b0;
-		 switch_val <= 1'b0;
-	  end
-     else
-	  begin
-       btn0_val <= ~step_d_btn0[0] & step_d_btn0[1] & clk;
-		 btn1_val <= ~step_d_btn1[0] & step_d_btn1[1] & clk;
-		 switch_val <= ~step_d_sw[0] & step_d_sw[1] & clk;
-	  end
+    if (rstBtn == 1 || pueBtn == 1 || prevSel != sel || prevAdj != adj)
+    begin
+      cnt = cnt + 1'b1;
+      if (cnt == 12'b111111111111)
+      begin
+        regHold = 1'b1;
+        if (rstBtn == 1) 
+          validRstBtn = rstBtn;
+        else if (pueBtn == 1) 
+        begin
+          validPueBtn = pueBtn;
+          $display ("pueBtn: (%d)", pueBtn);
+        end
+        else if (prevSel != sel)
+        begin
+          validSel = sel;
+          prevSel = sel;
+        end
+        else
+        begin
+          validAdj = adj;
+          prevAdj = adj;
+        end
+      end
+    end
+    else
+    begin
+      // Handling noise
+      if (regHold == 1'b0 && cnt > 1'b0) begin
+        $display ("%dns Noise: ", cnt);
+        cnt = 12'd0;
+      end
+      else if (regHold == 1'b1)
+      begin
+        cnt = cnt - 1'b1;
+        if (cnt == 1'b0) 
+        begin
+           regHold = 1'b0; 
+           $display ("regHold complete");
+        end
+      end
+      else
+      begin
+        cnt = 12'd0;
+        validRstBtn = 0;
+        validPueBtn = 0;
+      end
+    end
 
 endmodule
