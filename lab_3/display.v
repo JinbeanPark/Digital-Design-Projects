@@ -51,22 +51,50 @@ begin
 		2'b00:
 		begin
 			anode = 4'b0111;
-			value = mincounter / 10;
+			if (adj == 1 && sel == 0 && blinkclk == 1)
+			begin
+				value = 4'b1111;
+			end
+			else
+			begin
+				value = mincounter / 10;
+			end
 		end
 		2'b01:
 		begin
 			anode = 4'b1011;
-			value = mincounter % 10;
+			if (adj == 1 && sel == 0 && blinkclk == 1)
+			begin
+				value = 4'b1111;
+			end
+			else
+			begin
+				value = mincounter % 10;
+			end
 		end
 		2'b10:
 		begin
 			anode = 4'b1101;
-			value = seccounter / 10;
+			if (adj == 1 && sel == 1 && blinkclk == 1)
+			begin
+				value = 4'b1111;
+			end
+			else
+			begin
+				value = seccounter / 10;
+			end
 		end
 		2'b11:
 		begin
 			anode = 4'b1110;
-			value = seccounter % 10;
+			if (adj == 1 && sel == 1 && blinkclk == 1)
+			begin
+				value = 4'b1111;
+			end
+			else
+			begin
+				value = seccounter % 10;
+			end
 		end
 	endcase
 	counter = counter + 1;
@@ -81,6 +109,7 @@ begin
 		4'b0111: led = 7'b0001111;
 		4'b1000: led = 7'b0000000;
 		4'b1001: led = 7'b0000100;
+		4'b1111: led = 7'b1111111; //case for display nothing
 		default: led = 7'b0000001;
 	endcase
 	
