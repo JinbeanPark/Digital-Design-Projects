@@ -27,7 +27,9 @@ rstBtn,
 pueBtn,
 //outputs for TB
 minutes,
-seconds
+seconds,
+boardAnode,
+segmentLed
 );
 input clk;
 input sel;
@@ -37,10 +39,12 @@ input pueBtn;
 //outputs for TB
 output reg [5:0] minutes;
 output reg [5:0] seconds;
+output reg [3:0] boardAnode;
+output reg [6:0] segmentLed;
 
 //wiring
-wire [5:0] mincounter;
-wire [5:0] seccounter;
+wire [5:0] mins;
+wire [5:0] secs;
 wire btn0_val; //reset
 wire btn1_val; //pause
 wire blinkclk;
@@ -48,7 +52,7 @@ wire adjclk;
 wire countclk;
 wire fastclk;
 wire [3:0] anode;
-wire [6:0] led;
+wire [6:0] segment;
 wire validRstBtn;
 wire validPueBtn;
 wire validSel;
@@ -60,10 +64,10 @@ display display_ (
 				 .blinkclk(blinkclk),
 				 .sel(sel),
 				 .adj(adj),
-				 .mincounter(mincounter[5:0]),
-				 .seccounter(seccounter[5:0]),
+				 .mincounter(mins[5:0]),
+				 .seccounter(secs[5:0]),
 				 .anode(anode[3:0]),
-				 .led(led[6:0])
+				 .segment(segment[6:0])
 				 );
 				 
 debouncer debouncer_ (
@@ -81,8 +85,8 @@ counter counter_ (
 				 .clk(clk),
 				 .countclk(countclk),
 				 .adjclk(adjclk),
-				 .mincounter(mincounter[5:0]),
-				 .seccounter(seccounter[5:0]),
+				 .mincounter(mins[5:0]),
+				 .seccounter(secs[5:0]),
 				 .sel(sel),
 				 .adj(adj),
 				 .btn0_val(validRstBtn),
@@ -97,8 +101,10 @@ clock clock_ (
 				 );
 always @*
 begin
-	minutes = mincounter;
-	seconds = seccounter;
+	minutes = mins;
+	seconds = secs;
+    segmentLed = segment;
+    boardAnode = anode;
 end
 
 endmodule

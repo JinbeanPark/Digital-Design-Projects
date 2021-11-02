@@ -21,85 +21,21 @@
 module display(
 anode,
 segment,
-fastclk,
-blinkclk,
-sel,
-adj,
-mincounter,
-seccounter
+clk,
     );
 
-input fastclk;
-input blinkclk;
-input sel;
-input adj;
-input [5:0] mincounter;
-input [5:0] seccounter;
+input clk;
 output reg [3:0] anode;
 output reg [6:0] segment;
 
 //in-module reg
 reg [3:0] value;
-reg [1:0] counter;
 
-initial
-begin
-	counter = 0;
-end
 
-always @(posedge fastclk)
+always @(posedge clk)
 begin
-	case(counter)
-		2'b00:
-		begin
-			anode = 4'b0111;
-			if (adj == 1 && sel == 0 && blinkclk == 1)
-			begin
-				value = 4'b1111;
-			end
-			else
-			begin
-				value = mincounter / 10;
-			end
-		end
-		2'b01:
-		begin
-			anode = 4'b1011;
-			if (adj == 1 && sel == 0 && blinkclk == 1)
-			begin
-				value = 4'b1111;
-			end
-			else
-			begin
-				value = mincounter % 10;
-			end
-		end
-		2'b10:
-		begin
-			anode = 4'b1101;
-			if (adj == 1 && sel == 1 && blinkclk == 1)
-			begin
-				value = 4'b1111;
-			end
-			else
-			begin
-				value = seccounter / 10;
-			end
-		end
-		2'b11:
-		begin
-			anode = 4'b1110;
-			if (adj == 1 && sel == 1 && blinkclk == 1)
-			begin
-				value = 4'b1111;
-			end
-			else
-			begin
-				value = seccounter % 10;
-			end
-		end
-	endcase
-	counter = counter + 1;
+    anode = 4'b0111;
+    value = 4'b0000;
 	case(value)
 		4'b0000: segment = 7'b0000001;
 		4'b0001: segment = 7'b1001111;

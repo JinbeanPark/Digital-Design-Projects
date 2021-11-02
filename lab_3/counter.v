@@ -38,35 +38,50 @@ input adj;
 input sel;
 input btn0_val; //reset
 input btn1_val; //pause
-
+reg cycle;
+reg pendingReset;
 initial
 begin
 	mincounter = 0;
 	seccounter = 0;
+    cycle = 0;
+    pendingReset = 0;
 end
-always @(posedge clk)
+/*
+always @(posedge btn0_val)
 begin
-	if (btn0_val == 1)
-	begin
-		mincounter = 0;
-		seccounter = 0;
-	end
-end
+	mincounter <= 0;
+	seccounter <= 0;
+end*/
 
-always @(posedge countclk)
+
+always @(posedge adjclk or posedge btn0_val)
 begin
-	if (adj == 0 && btn1_val == 0)
-	begin
-		seccounter = seccounter + 1;
-		if (seccounter % 60 == 0)
-		begin
-			seccounter = 0;
-			mincounter = mincounter + 1;
-		end
+    if (btn0_val == 1)
+    begin
+        mincounter = 0;
+        seccounter = 0;
+    end
+    else
+    begin
+    cycle = ~cycle;
+    if (cycle == 0)
+    begin
+        if (adj == 0 && btn1_val == 0)
+        begin
+            seccounter = seccounter + 1;
+            if (seccounter % 60 == 0)
+            begin
+                seccounter = 0;
+                mincounter = mincounter + 1;
+                if (mincounter % 60 == 0)
+                begin
+                    mincounter = 0;
+                end
+            end
+        end
 	end
-end
-always @(posedge adjclk)
-begin
+    
 	if (adj == 1 && btn1_val == 0)
 	begin
 		if (sel == 1)
@@ -79,9 +94,14 @@ begin
 		end
 		else
 		begin
-			mincounter = mincounter + 1; //no handling for overflow
+			mincounter = mincounter + 1;
+            if (mincounter % 60 == 0)
+            begin
+                mincounter = 0;
+            end
 		end
 	end
+    end
 end
 
 
