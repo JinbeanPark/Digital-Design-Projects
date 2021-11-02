@@ -26,7 +26,6 @@ module toplevel_TB;
 
 	// Inputs
 	reg clk;
-	reg pause;
 	reg sel;
 	reg adj;
 	reg rstBtn;
@@ -39,7 +38,6 @@ module toplevel_TB;
 	// Instantiate the Unit Under Test (UUT)
 	toplevel uut (
 		.clk(clk), 
-		.pause(pause), 
 		.sel(sel), 
 		.adj(adj), 
 		.rstBtn(rstBtn), 
@@ -53,7 +51,6 @@ module toplevel_TB;
 		
 		// Initialize Inputs
 		clk = 0;
-		pause = 0;
 		sel = 0;
 		adj = 0;
 		rstBtn = 0;
@@ -62,16 +59,39 @@ module toplevel_TB;
 		rstBtn = 1;
 		// Wait 100 ns for global reset to finish
 		#100;
+		$display("Starting clock here");
 		rstBtn = 0; //should stop resetting, clock should start now
+		//Normal case
+		#500000;
+		/*
+		$display("Starting pause function");
+		//Testing pause function
+		//Simulate noise
+		pueBtn = ~pueBtn;
+		#5000;
+		pueBtn = ~pueBtn;
+		#5000;
+		pueBtn = ~pueBtn;
+		#2500;
+		pueBtn = ~pueBtn; 
+		#2500;
+		//Below 4 lines are for normal input
+		pueBtn = ~pueBtn;
+		#50000;
+		pueBtn = ~pueBtn;
+		#50000;
+		*/
 		
-		#1000;
+		//at this point we should have clock paused
 		
-      pause = 1;
-		#1000;
-		pause = 0; //simulate pause press
+		//
+		
+		//Test adjust minutes
+		adj = 1;
+		#100;
 		
 		
-		#1000;
+		
 		end
 	always #5 clk = ~clk; //simulate master clock of 100MHz
 	/*

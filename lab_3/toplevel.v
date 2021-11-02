@@ -21,7 +21,6 @@
 module toplevel(
 // Top level inputs
 clk,
-pause,
 sel,
 adj,
 rstBtn,
@@ -31,7 +30,6 @@ minutes,
 seconds
 );
 input clk;
-input pause;
 input sel;
 input adj;
 input rstBtn;
