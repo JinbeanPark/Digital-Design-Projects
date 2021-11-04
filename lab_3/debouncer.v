@@ -40,6 +40,7 @@ output reg validSel;
 output reg validAdj;
 
 reg [11:0] cnt;
+reg switchedPueBtn;
 reg regHold;
 reg prevSel;
 reg prevAdj;
@@ -48,6 +49,7 @@ reg prevAdj;
   initial 
   begin
     cnt = 12'b0;
+    switchedPueBtn = 1'b0;
     regHold = 1'b0;
     prevSel = sel;
     prevAdj = adj;
@@ -66,10 +68,11 @@ reg prevAdj;
         regHold = 1'b1;
         if (rstBtn == 1) 
           validRstBtn = rstBtn;
-        else if (pueBtn == 1) 
+        else if (pueBtn == 1 && switchedPueBtn == 1'b0) 
         begin
           validPueBtn = ~validPueBtn;
-          $display ("pueBtn: (%d)", validPueBtn);
+          switchedPueBtn = 1'b1;
+          $display ("pueBtn: (%d)", pueBtn);
         end
         else if (prevSel != sel)
         begin
@@ -102,6 +105,7 @@ reg prevAdj;
       else
       begin
         cnt = 12'd0;
+        switchedPueBtn = 1'b0;
         validRstBtn = 0;
         //validPueBtn = 0;
       end
