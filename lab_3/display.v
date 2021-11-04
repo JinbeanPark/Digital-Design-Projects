@@ -53,7 +53,7 @@ begin
 		2'b00:
 		begin
 			anode = 4'b0111;
-			if (adj == 1 && sel == 1 && blinkclk == 1)
+			if (adj == 1 && sel == 0 && blinkclk == 1)
 			begin
 				value = 4'b1111;
 			end
@@ -65,7 +65,7 @@ begin
 		2'b01:
 		begin
 			anode = 4'b1011;
-			if (adj == 1 && sel == 1 && blinkclk == 1)
+			if (adj == 1 && sel == 0 && blinkclk == 1)
 			begin
 				value = 4'b1111;
 			end
@@ -77,7 +77,7 @@ begin
 		2'b10:
 		begin
 			anode = 4'b1101;
-			if (adj == 1 && sel == 0 && blinkclk == 1)
+			if (adj == 1 && sel == 1 && blinkclk == 1)
 			begin
 				value = 4'b1111;
 			end
@@ -89,7 +89,7 @@ begin
 		2'b11:
 		begin
 			anode = 4'b1110;
-			if (adj == 1 && sel == 0 && blinkclk == 1)
+			if (adj == 1 && sel == 1 && blinkclk == 1)
 			begin
 				value = 4'b1111;
 			end

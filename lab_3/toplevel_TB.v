@@ -67,7 +67,7 @@ module toplevel_TB;
 		rstBtn = 0; //should stop resetting, clock should start now
 		//Normal case
 		#500000;
-		/*
+		
 		$display("Starting pause function");
 		//Testing pause function
 		//Simulate noise
@@ -84,7 +84,7 @@ module toplevel_TB;
 		#50000;
 		pueBtn = ~pueBtn;
 		#50000;
-		*/
+		
 		
 		//at this point we should have clock paused
 		

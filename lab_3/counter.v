@@ -40,12 +40,15 @@ input btn0_val; //reset
 input btn1_val; //pause
 reg cycle;
 reg pendingReset;
+reg pausedState;
+reg pendingPause;
 initial
 begin
 	mincounter = 0;
 	seccounter = 0;
     cycle = 0;
-    pendingReset = 0;
+    pausedState = 0;
+    pendingPause = 0;
 end
 /*
 always @(posedge btn0_val)
@@ -55,19 +58,29 @@ begin
 end*/
 
 
-always @(posedge adjclk or posedge btn0_val)
+always @(posedge adjclk or posedge btn0_val or posedge btn1_val)
 begin
     if (btn0_val == 1)
     begin
         mincounter = 0;
         seccounter = 0;
     end
+    else if (btn1_val == 1)
+    begin
+        pendingPause = 1;
+    end
     else
     begin
+    if (pendingPause == 1)
+        begin
+            pausedState = ~pausedState;
+            pendingPause = 0;
+        end
     cycle = ~cycle;
     if (cycle == 0)
     begin
-        if (adj == 0 && btn1_val == 0)
+        
+        if (adj == 0 && pausedState == 0)
         begin
             seccounter = seccounter + 1;
             if (seccounter % 60 == 0)
@@ -82,7 +95,7 @@ begin
         end
 	end
     
-	if (adj == 1 && btn1_val == 0)
+	if (adj == 1 && pausedState == 0)
 	begin
 		if (sel == 1)
 		begin

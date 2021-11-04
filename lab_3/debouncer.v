@@ -68,11 +68,9 @@ reg prevAdj;
         regHold = 1'b1;
         if (rstBtn == 1) 
           validRstBtn = rstBtn;
-        else if (pueBtn == 1 && switchedPueBtn == 1'b0) 
+        else if (pueBtn == 1) 
         begin
-          validPueBtn = ~validPueBtn;
-          switchedPueBtn = 1'b1;
-          $display ("pueBtn: (%d)", pueBtn);
+          validPueBtn = pueBtn;
         end
         else if (prevSel != sel)
         begin
@@ -100,15 +98,14 @@ reg prevAdj;
         begin
            regHold = 1'b0; 
            $display ("regHold complete");
+                 
+        cnt = 12'd0;
+        validPueBtn = 0;
+        validRstBtn = 0;
+            
         end
       end
-      else
-      begin
-        cnt = 12'd0;
-        switchedPueBtn = 1'b0;
-        validRstBtn = 0;
-        //validPueBtn = 0;
-      end
+
     end
 
 endmodule

@@ -66,7 +66,7 @@ begin
 		adjcounter = 0;
 		adjclk = ~adjclk;
 	end
-	if (fastcounter == 32'd300000) 
+	if (fastcounter == 32'd150000) 
 	begin
 		fastcounter = 0;
 		fastclk = ~fastclk;
