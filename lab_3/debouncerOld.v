@@ -99,15 +99,11 @@ reg prevAdj;
         begin
            regHold = 1'b0; 
            $display ("regHold complete");
-                 
-        cnt = 12'd0;
-        //validPueBtn = 0;
-	switchedPueBtn = 1'b0;
-        validRstBtn = 0;
-            
+           cnt = 12'd0;
+           //validPueBtn = 0;
+	   switchedPueBtn = 1'b0;
+           validRstBtn = 0; 
         end
       end
-
     end
-
 endmodule
