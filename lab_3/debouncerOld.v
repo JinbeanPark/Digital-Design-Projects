@@ -53,7 +53,6 @@ reg prevAdj;
     regHold = 1'b0;
     prevSel = sel;
     prevAdj = adj;
-	 switchedPueBtn = 1'b0;
     validRstBtn = 1'b0;
     validPueBtn = 1'b0;
     validSel = 1'b0;
