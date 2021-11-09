@@ -19,8 +19,6 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module counter(
-clk,
-countclk,
 adjclk,
 mincounter,
 seccounter,
@@ -29,10 +27,8 @@ adj,
 btn0_val,
 btn1_val
     );
-input clk;
 output reg [5:0] mincounter;
 output reg [5:0] seccounter;
-input countclk;
 input adjclk;
 input adj;
 input sel;
