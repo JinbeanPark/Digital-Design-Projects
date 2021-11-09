@@ -71,7 +71,7 @@ reg prevAdj;
         else if (pueBtn == 1 && switchedPueBtn == 1'b0) 
         begin
           validPueBtn = ~validPueBtn;
-			 switchedPueBtn = 1'b1;
+	  switchedPueBtn = 1'b1;
         end
         else if (prevSel != sel)
         begin
@@ -102,7 +102,7 @@ reg prevAdj;
                  
         cnt = 12'd0;
         //validPueBtn = 0;
-		  switchedPueBtn = 1'b0;
+	switchedPueBtn = 1'b0;
         validRstBtn = 0;
             
         end
