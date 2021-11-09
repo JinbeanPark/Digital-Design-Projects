@@ -22,31 +22,26 @@ module clock(
 clk,
 blinkclk,
 adjclk,
-countclk,
 fastclk
     );
 output reg blinkclk;
 output reg adjclk;
-output reg countclk;
 output reg fastclk;
 input clk;
 
 //in-module variables
 integer blinkcounter;
 integer adjcounter;
-integer countcounter;
 integer fastcounter;
 
 initial
 begin
 	blinkclk = 0;
 	adjclk = 0;
-	countclk = 0;
 	fastclk = 0;
 	
 	blinkcounter = 0;
 	adjcounter = 0;
-	countcounter = 0;
 	fastcounter = 0;
 end
 
@@ -54,13 +49,7 @@ always @(posedge clk)
 begin
 	blinkcounter = blinkcounter + 1;
 	adjcounter = adjcounter + 1;
-	countcounter = countcounter + 1;
 	fastcounter = fastcounter + 1;
-	if (countcounter == 32'd49999999)
-	begin
-		countcounter = 0;
-		countclk = ~countclk;
-	end
 	if (adjcounter == 32'd24999999)
 	begin
 		adjcounter = 0;
@@ -75,8 +64,7 @@ begin
 	begin
 		blinkcounter = 0;
 		blinkclk = ~blinkclk;
-	end
-		
+	end	
 end
 
 endmodule
