@@ -77,7 +77,6 @@ debouncer debouncer_ (
 				 .validAdj(validAdj)
 				 );
 counter counter_ (
-				 .clk(clk),
 				 .adjclk(adjclk),
 				 .mincounter(mins[5:0]),
 				 .seccounter(secs[5:0]),

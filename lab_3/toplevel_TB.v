@@ -32,8 +32,7 @@ module toplevel_TB;
 	reg pueBtn;
 	
 	// Outputs
-	wire [5:0] minutes;
-	wire [5:0] seconds;
+
     wire [3:0] boardAnode;
     wire [6:0] segmentLed;
 	
@@ -44,8 +43,6 @@ module toplevel_TB;
 		.adj(adj), 
 		.rstBtn(rstBtn), 
 		.pueBtn(pueBtn),
-		.minutes(minutes[5:0]),
-		.seconds(seconds[5:0]),
         .boardAnode(boardAnode[3:0]),
         .segmentLed(segmentLed[6:0])
 	);

@@ -1,4 +1,4 @@
-`timescale 100ms / 1ps
+`timescale 10ms / 1ps
 
 ////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -23,14 +23,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module counter_TB;
-	reg clk;
+	reg adjclk;
+	reg adj;
+	reg sel;
+	reg btn0_val;
+	reg btn1_val;
 	
 	wire [5:0] seccounter;
 	wire [5:0] mincounter;
 	
 	// Instantiate the Unit Under Test (UUT)
 	counter uut (
-		.clk (clk),
+		.adjclk (adjclk),
+		.adj (adj),
+		.sel (sel),
+		.btn0_val (btn0_val),
+		.btn1_val (btn1_val),
 		.seccounter (seccounter),
 		.mincounter (mincounter)
 	);
@@ -40,11 +48,16 @@ module counter_TB;
 
 		// Wait 100 ns for global reset to finish
 		#100;
+		adj = 0;
+		sel = 0;
+		btn0_val = 0;
+		btn1_val = 0;
         
-		clk = 0;
+		 
+		adjclk = 0;
 		// Add stimulus here
 
 	end
-   always #5 clk = ~clk;
+   always #25 adjclk = ~adjclk;
 endmodule
 
