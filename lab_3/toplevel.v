@@ -26,8 +26,6 @@ adj,
 rstBtn,
 pueBtn,
 //outputs for TB
-minutes,
-seconds,
 boardAnode,
 segmentLed
 );
