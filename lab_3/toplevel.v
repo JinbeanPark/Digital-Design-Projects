@@ -37,8 +37,6 @@ input adj;
 input rstBtn;
 input pueBtn;
 //outputs for TB
-output reg [5:0] minutes;
-output reg [5:0] seconds;
 output reg [3:0] boardAnode;
 output reg [6:0] segmentLed;
 
@@ -49,7 +47,6 @@ wire btn0_val; //reset
 wire btn1_val; //pause
 wire blinkclk;
 wire adjclk;
-wire countclk;
 wire fastclk;
 wire [3:0] anode;
 wire [6:0] segment;
@@ -83,7 +80,6 @@ debouncer debouncer_ (
 				 );
 counter counter_ (
 				 .clk(clk),
-				 .countclk(countclk),
 				 .adjclk(adjclk),
 				 .mincounter(mins[5:0]),
 				 .seccounter(secs[5:0]),
@@ -96,13 +92,10 @@ clock clock_ (
 				 .clk(clk),
 				 .blinkclk(blinkclk),
 				 .adjclk(adjclk),
-				 .countclk(countclk),
 				 .fastclk(fastclk)
 				 );
 always @*
 begin
-	minutes = mins;
-	seconds = secs;
     segmentLed = segment;
     boardAnode = anode;
 end
