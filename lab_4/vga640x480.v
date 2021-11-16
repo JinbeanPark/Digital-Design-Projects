@@ -40,6 +40,9 @@ parameter hbp = 144; 	// end of horizontal back porch
 parameter hfp = 784; 	// beginning of horizontal front porch
 parameter vbp = 31; 		// end of vertical back porch
 parameter vfp = 511; 	// beginning of vertical front porch
+//parameter barpos = 11;
+//parameter holepos = 4;
+//parameter plrpos = 5;
 // active horizontal video is therefore: 784 - 144 = 640
 // active vertical video is therefore: 511 - 31 = 480
 
@@ -101,7 +104,7 @@ assign vsync = (vc < vpulse) ? 0:1;
 always @(*)
 begin
 	// first check if we're within vertical active video range
-	if (vc >= vbp && vc < vfp && hc >= hbp && hc < hfp))
+	if (vc >= vbp && vc < vfp && hc >= hbp && hc < hfp)
 	begin
 		// check if rendering player
 		if (hc >= hbp + (40 * plrpos) && hc < hbp + (40 * plrpos) + 40 && vc >= vfp - 40 && vc < vfp)
@@ -120,6 +123,12 @@ begin
 				green = 3'b111;
 				blue = 2'b11;
 			end
+            else 
+            begin
+                red = 3'b000;
+                green = 3'b000;
+                blue = 2'b00;
+            end
 		end
 		else
 		begin
