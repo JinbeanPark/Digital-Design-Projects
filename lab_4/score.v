@@ -44,7 +44,7 @@ begin
 		2'b00:
 		begin
 			anode = 4'b0111;
-            value = (timealive / 60) / 10;
+	           	value = (timealive / 60) / 10;
 		end
 		2'b01:
 		begin
@@ -54,12 +54,12 @@ begin
 		2'b10:
 		begin
 			anode = 4'b1101;
-            value = (timealive % 60) / 10;
+	           	value = (timealive % 60) / 10;
 		end
 		2'b11:
 		begin
 			anode = 4'b1110;
-            value = (timealive % 60) % 10;
+            		value = (timealive % 60) % 10;
 		end
 	endcase
 	counter = counter + 1;
@@ -77,7 +77,6 @@ begin
 		4'b1111: segment = 7'b1111111; //case for display nothing
 		default: segment = 7'b0000001;
 	endcase
-	
 end
 
 endmodule
