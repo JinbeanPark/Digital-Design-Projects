@@ -33,7 +33,7 @@ output reg [2:0] led;
 always @(posedge scoreclk or posedge clr)
 begin
     if (clr == 1)
-        lives <= 0;
+        lives <= 3;
     if (lives == 3)
         led [2:0] = 3'b111;
     else if (lives == 2)
