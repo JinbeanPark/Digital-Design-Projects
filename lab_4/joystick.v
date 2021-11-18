@@ -41,7 +41,8 @@ module joystick(
     MISO,
     SS,
     MOSI,
-    SCLK
+    SCLK,
+    posData
     );
 
 	// ===========================================================================
@@ -71,7 +72,7 @@ module joystick(
 			wire [39:0] jstkData;
 
 			// Signal carrying output data that user selected
-			wire [9:0] posData;
+			output reg [9:0] posData;
 
 	// ===========================================================================
 	// 										Implementation
@@ -95,15 +96,7 @@ module joystick(
 			
 
 
-			//-----------------------------------------------
-			//  Send output of X position data to movement module.
-			//-----------------------------------------------
-			movement movement_(
-					.CLK(CLK),
-					.RST(RST),
-					.DIN(posData)
-			);
-			
+
 			
 
 			//-----------------------------------------------
@@ -115,9 +108,11 @@ module joystick(
 					.CLKOUT(sndRec)
 			);
 			
-
+            always @(*)
+            begin
+            posData = {jstkData[9:8], jstkData[23:16]};
+            end
 			// output of X position data to movement module.
-			assign posData = {jstkData[9:8], jstkData[23:16]};
 
 			// Data to be sent to PmodJSTK, lower two bits will turn on leds on PmodJSTK
 			assign sndData = 8'b10000000;

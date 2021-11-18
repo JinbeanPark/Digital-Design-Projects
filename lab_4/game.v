@@ -31,7 +31,7 @@ module game(
 
 output reg [3:0] barpos;
 output reg [3:0] holepos;
-output reg [3:0] plrpos;
+input [3:0] plrpos;
 output reg [15:0] timealive;
 output reg [1:0] lives;
 input gameclk;
@@ -39,9 +39,9 @@ input clr;
 input scoreclk;
 initial
 begin
-	barpos = 0;
-	holepos = ($urandom & 15)%14;
-	plrpos = 8;
+	barpos = 4'd0;
+	holepos = 4'd0;
+	//plrpos = 8;
 	lives <= 3;
 	timealive <= 0;
 end
@@ -51,8 +51,8 @@ begin
 	if (clr == 1)
 	begin
 		barpos = 0;
-		holepos = ($urandom & 15)%14;
-		plrpos = 8;
+		//holepos = ($urandom & 15)%14;
+		//plrpos = 8;
 		lives <= 3;
 	end
 	else
@@ -65,7 +65,7 @@ begin
 			end
 			else
 			barpos = 0;
-			holepos = ($urandom & 15)%14;
+			//holepos = ($urandom & 15)%14;
 		end
 		else 
 		begin

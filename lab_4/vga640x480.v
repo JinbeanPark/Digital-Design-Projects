@@ -18,12 +18,12 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module vga640x480(
+module vga(
 	input wire dclk,			//pixel clock: 25MHz
 	input wire clr,			//asynchronous reset
-	input wire barpos,
-	input wire holepos,
-	input wire plrpos, 
+	input wire [3:0] barpos,
+	input wire [3:0] holepos,
+	input wire [3:0] plrpos, 
 	output wire hsync,		//horizontal sync out
 	output wire vsync,		//vertical sync out
 	output reg [2:0] red,	//red vga output
@@ -40,9 +40,9 @@ parameter hbp = 144; 	// end of horizontal back porch
 parameter hfp = 784; 	// beginning of horizontal front porch
 parameter vbp = 31; 		// end of vertical back porch
 parameter vfp = 511; 	// beginning of vertical front porch
-//parameter barpos = 11;
-//parameter holepos = 4;
-//parameter plrpos = 5;
+//parameter bp = 11;
+//parameter hp = 4;
+//parameter pp = 5;
 // active horizontal video is therefore: 784 - 144 = 640
 // active vertical video is therefore: 511 - 31 = 480
 
