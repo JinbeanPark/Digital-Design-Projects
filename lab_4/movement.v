@@ -23,14 +23,14 @@
 module movement(
 clk,
 plrpos,
-DOUT,
-simulate
+jstkData,
+//simulate
     );
 
-input [39:0] DOUT; // joystick movement
+input [39:0] jstkData; // joystick movement
 input clk;			 // updated based on this clock
 output reg [3:0] plrpos;
-input [9:0] simulate;
+//input [9:0] simulate;
 
 reg [9:0] position;
 reg [1:0] action;
@@ -44,8 +44,8 @@ end
 
 always @(posedge clk)
 begin
-	//position = {jstkData[9:8], jstkData[23:16]}; // change if using other axis
-	position = simulate;
+	position = {jstkData[9:8], jstkData[23:16]}; // change if using other axis
+	//position = simulate;
 	//calculations here
 	if(position <= 300) action = 2'b00;
 	else if(position >=700) action = 2'b11;
