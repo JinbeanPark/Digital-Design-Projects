@@ -43,7 +43,7 @@ wire segclk;
 wire scoreclk;
 wire gameclk;
 
-wire [3:0] barpos;
+wire [8:0] barpos;
 wire [3:0] holepos;
 wire [3:0] plrpos;
 wire [15:0] timealive;
@@ -92,7 +92,7 @@ game game_(
        .gameclk(gameclk),
        .clr(clr),
        .scoreclk(scoreclk),
-       .barpos(barpos[3:0]),
+       .barpos(barpos[8:0]),
        .holepos(holepos[3:0]),
        .plrpos(plrpos[3:0]),
        .timealive(timealive),
@@ -109,7 +109,7 @@ score score_(
 vga vga_(
     .dclk(dclk),
     .clr(clr),
-    .barpos(barpos[3:0]),
+    .barpos(barpos[8:0]),
     .holepos(holepos[3:0]),
     .plrpos(plrpos[3:0]),
     .hsync(hsync),

@@ -21,7 +21,7 @@
 module vga(
 	input wire dclk,			//pixel clock: 25MHz
 	input wire clr,			//asynchronous reset
-	input wire [3:0] barpos,
+	input wire [8:0] barpos,
 	input wire [3:0] holepos,
 	input wire [3:0] plrpos, 
 	output wire hsync,		//horizontal sync out
@@ -115,7 +115,7 @@ begin
 		end
 
 		// check if rendering a bar
-		else if (vc >= vbp + (40 * barpos) && vc < vbp + (40 * barpos) + 40)
+		else if (vc <= vbp + barpos && vc > vbp + barpos - 30)
 		begin
 			if (hc < hbp + (40 * holepos) || hc >= hbp + (40 * holepos) + 120)
 			begin

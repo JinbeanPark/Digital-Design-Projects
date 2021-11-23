@@ -51,26 +51,20 @@ begin
 	if (clr == 1)
 	begin
 		barpos = 0;
-		//holepos = ($urandom & 15)%14;
+		holepos = ($urandom & 15)%14;
 		//plrpos = 8;
 		lives <= 3;
 	end
 	else
 	begin
-		if (barpos == 11) 
+		if (barpos == 440 && (plrpos < holepos || plrpos > holepos + 2)) 
+			lives <= lives - 1;
+		if (barpos == 510) // bar no longer onscreen
 		begin
-			if (plrpos < holepos || plrpos > holepos + 2)
-			begin
-				lives <= lives - 1;
-			end
-			else
 			barpos = 0;
-			//holepos = ($urandom & 15)%14;
+			holepos = ($urandom & 15)%14;
 		end
-		else 
-		begin
-			barpos = barpos + 1;
-		end
+		barpos = barpos + 1;
 	end
 	
 	
