@@ -105,14 +105,14 @@ game game_(
        .timealive(timealive),
        .lives(lives)
 );
-/*
+
 score score_(
        .segclk(segclk),
        .timealive(timealive),
        .anode(anode),
        .segment(segment)
 );
-*/
+
 vga vga_(
     .dclk(dclk),
     .clr(clrSig),
@@ -150,8 +150,7 @@ movement movement_(
 );
 
 lives lives_(
-        .scoreclk(scoreclk),
-        .clr(clrSig),
+        .gameclk(gameclk),
         .lives(lives),
         .led(led)
 );

@@ -19,21 +19,17 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module lives (
-    scoreclk,
-    clr,
+    gameclk,
     lives,
     led
 );
 
-input scoreclk;
-input clr;
+input gameclk;
 input lives;
 output reg [2:0] led;
 
-always @(posedge scoreclk or posedge clr)
+always @(posedge gameclk)
 begin
-    if (clr == 1)
-        lives <= 3;
     if (lives == 3)
         led [2:0] = 3'b111;
     else if (lives == 2)
