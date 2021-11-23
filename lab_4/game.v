@@ -37,6 +37,10 @@ output reg [1:0] lives;
 input gameclk;
 input clr;
 input scoreclk;
+
+integer cyclecounter;
+integer cyclesneeded;
+
 initial
 begin
 	barpos = 4'd0;
@@ -44,6 +48,8 @@ begin
 	//plrpos = 8;
 	lives <= 3;
 	timealive <= 0;
+	cyclecounter = 0;
+	cyclesneeded = 8;
 end
 
 always @(posedge gameclk or posedge clr)
@@ -54,17 +60,26 @@ begin
 		holepos = ($urandom & 15)%14;
 		//plrpos = 8;
 		lives <= 3;
+		cyclecounter = 0;
+		cyclesneeded = 8;
 	end
 	else
 	begin
-		if (barpos == 440 && (plrpos < holepos || plrpos > holepos + 2)) 
-			lives <= lives - 1;
-		if (barpos == 510) // bar no longer onscreen
+		cyclecounter = cyclecounter + 1;
+		if (cyclecounter == cyclesneeded)
 		begin
-			barpos = 0;
-			holepos = ($urandom & 15)%14;
+			if (barpos == 440 && (plrpos < holepos || plrpos > holepos + 2)) 
+				lives <= lives - 1;
+			if (barpos == 510) // bar no longer onscreen
+			begin
+				barpos = 0;
+				holepos = ($urandom & 15)%14;
+				cyclecounter = 0;
+				if (cyclesneeded > 1)
+					cyclesneeded = cyclesneeded - 1;
+			end
+			barpos = barpos + 1;
 		end
-		barpos = barpos + 1;
 	end
 	
 	
