@@ -42,6 +42,7 @@ wire dclk;
 wire segclk;
 wire scoreclk;
 wire gameclk;
+wire plrclk;
 
 wire clrSig;
 
@@ -87,7 +88,8 @@ clockdiv clockdiv_(
        .gameclk(gameclk),
        .scoreclk(scoreclk),
        .segclk(segclk),
-       .dclk(dclk)
+       .dclk(dclk),
+       .plrclk(plrclk)
 );   
 debouncer debouncer_(
 clk(clk),
@@ -144,7 +146,7 @@ joystick joystick_(
 );
 
 movement movement_(
-        .clk(gameclk),
+        .clk(plrclk),
         .plrpos(plrpos[3:0]),
         .posData(posData[9:0])
 );

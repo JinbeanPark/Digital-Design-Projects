@@ -24,17 +24,23 @@ module clockdiv(
 	output wire dclk,		//pixel clock: 25MHz
 	output wire segclk,	//7-segment clock: 381.47Hz
 	output reg gameclk,
-	output reg scoreclk
+	output reg scoreclk,
+	output reg plrclk
 	);
 
 // 17-bit counter variable
 reg [17:0] q;
 integer gamecounter;
 integer scorecounter;
+integer plrcounter;
 initial
 begin
 	gameclk = 0;
+	scorecounter = 0;
+	scoreclk = 0;
+	plrclk = 0;
 	gamecounter = 0;
+	plrcounter = 0;
 end
 
 // Clock divider --
@@ -48,6 +54,7 @@ begin
 		q <= 0;
 		gamecounter = 0;
 		scorecounter = 0;
+		plrcounter = 0;
 	end
 	// increment counter by one
 	else
@@ -55,6 +62,7 @@ begin
 		q <= q + 1;
 		gamecounter = gamecounter + 1;
 		scorecounter = scorecounter + 1;
+		plrcounter = plrcounter + 1;
 		if (gamecounter == 32'd24999999)
 		begin
 			gamecounter = 0;
@@ -64,6 +72,11 @@ begin
 		begin
 			scorecounter = 0;
 			scoreclk = ~scoreclk;
+		end
+		if (plrcounter == 32'd12499999)
+		begin
+			plrcounter = 0;
+			plrclk = ~plrclk;
 		end
 	end
 end
