@@ -26,7 +26,7 @@ module display(
 );
 
 input segclk;
-input timealive;
+input [15:0] timealive;
 output reg [3:0] anode;
 output reg [6:0] segment;
 

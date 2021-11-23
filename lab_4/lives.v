@@ -25,7 +25,7 @@ module lives (
 );
 
 input gameclk;
-input lives;
+input [1:0] lives;
 output reg [2:0] led;
 
 always @(posedge gameclk)

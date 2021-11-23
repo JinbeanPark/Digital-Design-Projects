@@ -46,6 +46,8 @@ end
 // Clock divider --
 // Each bit in q is a clock signal that is
 // only a fraction of the master clock.
+
+
 always @(posedge clk or posedge clr)
 begin
 	// reset condition
@@ -63,7 +65,7 @@ begin
 		gamecounter = gamecounter + 1;
 		scorecounter = scorecounter + 1;
 		plrcounter = plrcounter + 1;
-		if (gamecounter == 32'd24999999)
+		if (gamecounter == 32'd100000)
 		begin
 			gamecounter = 0;
 			gameclk = ~gameclk;
@@ -73,7 +75,7 @@ begin
 			scorecounter = 0;
 			scoreclk = ~scoreclk;
 		end
-		if (plrcounter == 32'd12499999)
+		if (plrcounter == 32'd10000000)
 		begin
 			plrcounter = 0;
 			plrclk = ~plrclk;

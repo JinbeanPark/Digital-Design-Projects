@@ -22,6 +22,7 @@ module game(
 	clr,
 	gameclk,
 	scoreclk,
+    clb,
 	barpos, 
 	holepos,
 	plrpos,
@@ -29,7 +30,7 @@ module game(
 	lives
 );
 
-output reg [3:0] barpos;
+output reg [8:0] barpos;
 output reg [3:0] holepos;
 input [3:0] plrpos;
 output reg [15:0] timealive;
@@ -37,51 +38,65 @@ output reg [1:0] lives;
 input gameclk;
 input clr;
 input scoreclk;
+input clb;
 
-integer cyclecounter;
-integer cyclesneeded;
-integer rounds;
+reg [2:0] cyclecounter;
+reg [2:0] cyclesneeded;
+reg [1:0] rounds;
+reg [3:0] rand;
 
 initial
 begin
-	barpos = 4'd0;
+	barpos = 9'd0;
 	holepos = 4'd0;
 	//plrpos = 8;
 	lives <= 3;
 	timealive <= 0;
 	cyclecounter = 0;
-	cyclesneeded = 8;
+	cyclesneeded = 7;
 	rounds = 0;
+    rand = 0;
+end
+
+always @(posedge clb)
+begin
+    rand = rand + 1;
+    if (rand == 14)
+    begin
+        rand = 0;
+    end
 end
 
 always @(posedge gameclk or posedge clr)
 begin
 	if (clr == 1)
 	begin
-		barpos = 0;
-		holepos = ($urandom & 15)%14;
+		barpos = 80;
+		holepos = 7;
 		//plrpos = 8;
 		lives <= 3;
 		cyclecounter = 0;
-		cyclesneeded = 8;
+		cyclesneeded = 7;
 		rounds = 0;
 	end
 	else
 	begin
 		cyclecounter = cyclecounter + 1;
-		if (cyclecounter == cyclesneeded)
+		if (cyclecounter == cyclesneeded && lives > 0)
 		begin
+        	cyclecounter = 0;
 			if (barpos == 440) 
 			begin
-				if (plrpos < holepos || plrpos > holepos + 2)
-					lives <= lives - 1;
-				rounds = rounds + 1
+				if (plrpos < holepos || plrpos > holepos + 2) 
+                begin
+                    lives <= lives - 1;
+                end
+				rounds = rounds + 1;
 			end
 			if (barpos == 510) // bar no longer onscreen
 			begin
 				barpos = 0;
-				holepos = ($urandom & 15)%14;
-				cyclecounter = 0;
+				holepos = rand[3:0];//($urandom)%14
 				if (cyclesneeded > 1 && rounds > 2)
 				begin
 					cyclesneeded = cyclesneeded - 1;

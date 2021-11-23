@@ -24,6 +24,7 @@ module vga(
 	input wire [8:0] barpos,
 	input wire [3:0] holepos,
 	input wire [3:0] plrpos, 
+    input wire [1:0] lives,
 	output wire hsync,		//horizontal sync out
 	output wire vsync,		//vertical sync out
 	output reg [2:0] red,	//red vga output
@@ -109,9 +110,32 @@ begin
 		// check if rendering player
 		if (hc >= hbp + (40 * plrpos) && hc < hbp + (40 * plrpos) + 40 && vc >= vfp - 40 && vc < vfp)
 		begin
-			red = 3'b111;
-			green = 3'b000;
-			blue = 2'b00;
+            case (lives)
+                2'b00:
+                begin
+                    red = 3'b111;
+                    green = 3'd000;
+                    blue = 2'b00;
+                end
+                2'b01:
+                begin
+                    red = 3'b111;
+                    green = 3'b010;
+                    blue = 2'b01;
+                end
+                2'b10:
+                begin
+                    red = 3'b111;
+                    green = 3'b101;
+                    blue = 2'b10;
+                end
+                2'b11:
+                begin
+                    red = 3'b111;
+                    green = 3'b111;
+                    blue = 2'b11;
+                end
+            endcase
 		end
 
 		// check if rendering a bar

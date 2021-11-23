@@ -53,7 +53,7 @@ begin
 	case(action)
 		2'b00: //left
 		begin
-            if (plrpos >= 0) plrpos = plrpos - 1;
+            if (plrpos > 0) plrpos = plrpos - 1;
 		end
 		2'b01: //stay
 		begin

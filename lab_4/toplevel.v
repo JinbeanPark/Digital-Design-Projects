@@ -22,7 +22,7 @@ module toplevel(
 clk,
 clr,
 anode,
-segment,
+seg,
 thsync,
 tvsync,
 tred,
@@ -32,7 +32,7 @@ MOSI,
 MISO,
 SS,
 SCLK,
-led
+Led
     );
     
 input clk;
@@ -54,7 +54,7 @@ wire [1:0] lives;
 
 
 output reg [3:0] anode;
-output reg [6:0] segment;
+output reg [6:0] seg;
 
 output reg thsync;
 output reg tvsync;
@@ -64,7 +64,7 @@ output reg [1:0] tblue;
 
 wire [9:0] posData;
 
-output reg [2:0] led;
+output reg [2:0] Led;
 
 wire hsync;
 wire vsync;
@@ -81,6 +81,9 @@ output reg MOSI;
 output reg SS;
 output reg SCLK;
 
+wire [2:0] topled;
+wire [6:0] topseg;
+wire [3:0] topanode;
 
 clockdiv clockdiv_(
        .clk(clk),
@@ -91,13 +94,15 @@ clockdiv clockdiv_(
        .dclk(dclk),
        .plrclk(plrclk)
 );   
+
 debouncer debouncer_(
-clk(clk),
-clrBtn(clr),
-clr(clrSig),
+.clk(clk),
+.clrBtn(clr),
+.clr(clrSig)
     );
 
 game game_(
+        .clb(clk),
        .gameclk(gameclk),
        .clr(clrSig),
        .scoreclk(scoreclk),
@@ -108,12 +113,14 @@ game game_(
        .lives(lives)
 );
 
-score score_(
+/*
+display display_(
        .segclk(segclk),
        .timealive(timealive),
        .anode(anode),
        .segment(segment)
 );
+*/
 
 vga vga_(
     .dclk(dclk),
@@ -121,6 +128,7 @@ vga vga_(
     .barpos(barpos[8:0]),
     .holepos(holepos[3:0]),
     .plrpos(plrpos[3:0]),
+    .lives(lives[1:0]),
     .hsync(hsync),
     .vsync(vsync),
     .red(red[2:0]),
@@ -153,16 +161,16 @@ movement movement_(
 
 lives lives_(
         .gameclk(gameclk),
-        .lives(lives),
-        .led(led)
+        .lives(lives[1:0]),
+        .led(topled)
 );
 
 
 display display_(
         .segclk(segclk),
-        .timealive(timealive),
-        .anode(anode),
-        .segment(segment)
+        .timealive(timealive[15:0]),
+        .anode(topanode),
+        .segment(topseg)
 );
 
 
@@ -176,6 +184,9 @@ begin
     MOSI = tMOSI;
     SS = tSS;
     SCLK = tSCLK;
+    Led = topled;
+    anode = topanode;
+    seg = topseg;
 end
 
 endmodule
