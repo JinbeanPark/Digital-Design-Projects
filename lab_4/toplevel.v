@@ -43,6 +43,8 @@ wire segclk;
 wire scoreclk;
 wire gameclk;
 
+wire clrSig;
+
 wire [8:0] barpos;
 wire [3:0] holepos;
 wire [3:0] plrpos;
@@ -81,16 +83,21 @@ output reg SCLK;
 
 clockdiv clockdiv_(
        .clk(clk),
-       .clr(clr),
+       .clr(clrSig),
        .gameclk(gameclk),
        .scoreclk(scoreclk),
        .segclk(segclk),
        .dclk(dclk)
 );   
+debouncer debouncer_(
+clk(clk),
+clrBtn(clr),
+clr(clrSig),
+    );
 
 game game_(
        .gameclk(gameclk),
-       .clr(clr),
+       .clr(clrSig),
        .scoreclk(scoreclk),
        .barpos(barpos[8:0]),
        .holepos(holepos[3:0]),
@@ -108,7 +115,7 @@ score score_(
 */
 vga vga_(
     .dclk(dclk),
-    .clr(clr),
+    .clr(clrSig),
     .barpos(barpos[8:0]),
     .holepos(holepos[3:0]),
     .plrpos(plrpos[3:0]),
@@ -128,7 +135,7 @@ vga vga_(
             */
 joystick joystick_(
        .CLK(clk),
-       .RST(clr),
+       .RST(clrSig),
        .MISO(MISO),
        .SS(tSS),
        .MOSI(tMOSI),
@@ -144,7 +151,7 @@ movement movement_(
 
 lives lives_(
         .scoreclk(scoreclk),
-        .clr(clr),
+        .clr(clrSig),
         .lives(lives),
         .led(led)
 );
