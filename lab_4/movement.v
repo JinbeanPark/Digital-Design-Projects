@@ -24,47 +24,44 @@ module movement(
 clk,
 plrpos,
 posData,
-//simulate
+lives
     );
-
+input [1:0] lives;
 input [9:0] posData; // joystick movement
 input clk;			 // updated based on this clock
 output reg [3:0] plrpos;
-//input [9:0] simulate;
-
-//reg [9:0] position;
 reg [1:0] action;
 
 initial
 begin
 plrpos = 8;
-//position = 10'd500;
 action = 2'b00;
 end
 
 always @(posedge clk)
 begin
-	//position = plsData; // change if using other axis
-	//calculations here
-	if(posData <= 300) action = 2'b00;
-	else if(posData >=700) action = 2'b11;
-	else action = 2'b01;
-	
-	case(action)
-		2'b00: //left
-		begin
-            if (plrpos > 0) plrpos = plrpos - 1;
-		end
-		2'b01: //stay
-		begin
-		//debug here:
-		end
-		2'b11: //right
-		begin
-			if(plrpos < 15) plrpos = plrpos + 1;
-        end
-	endcase
-	
+    if(lives > 0)
+    begin
+        //calculations here
+        if(posData <= 300) action = 2'b11;
+        else if(posData >=700) action = 2'b00;
+        else action = 2'b01;
+        
+        case(action)
+            2'b00: //left
+            begin
+                if (plrpos > 0) plrpos = plrpos - 1;
+            end
+            2'b01: //stay
+            begin
+            //debug here:
+            end
+            2'b11: //right
+            begin
+                if(plrpos < 15) plrpos = plrpos + 1;
+            end
+        endcase
+    end
 end
 
 

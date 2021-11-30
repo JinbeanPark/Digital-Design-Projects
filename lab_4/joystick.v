@@ -110,7 +110,7 @@ module joystick(
 			
             always @(*)
             begin
-            posData = {jstkData[9:8], jstkData[23:16]};
+            posData = {jstkData[25:24], jstkData[39:32]};
             end
 			// output of X position data to movement module.
 

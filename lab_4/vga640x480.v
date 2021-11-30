@@ -29,7 +29,8 @@ module vga(
 	output wire vsync,		//vertical sync out
 	output reg [2:0] red,	//red vga output
 	output reg [2:0] green, //green vga output
-	output reg [1:0] blue	//blue vga output
+	output reg [1:0] blue,	//blue vga output
+    input wire [2:0] cyclesneeded
 	);
 
 // video structure constants
@@ -41,9 +42,6 @@ parameter hbp = 144; 	// end of horizontal back porch
 parameter hfp = 784; 	// beginning of horizontal front porch
 parameter vbp = 31; 		// end of vertical back porch
 parameter vfp = 511; 	// beginning of vertical front porch
-//parameter bp = 11;
-//parameter hp = 4;
-//parameter pp = 5;
 // active horizontal video is therefore: 784 - 144 = 640
 // active vertical video is therefore: 511 - 31 = 480
 
@@ -143,22 +141,111 @@ begin
 		begin
 			if (hc < hbp + (40 * holepos) || hc >= hbp + (40 * holepos) + 120)
 			begin
-				red = 3'b111;
-				green = 3'b111;
-				blue = 2'b11;
+                case (cyclesneeded)
+                    3'b110:
+                    begin
+                        red = 3'b111;
+                        green = 3'b111;
+                        blue = 2'b11;
+                    end
+                    3'b101:
+                    begin
+                        red = 3'b000;
+                        green = 3'b111;
+                        blue = 2'b00;
+                    end
+                    3'b100:
+                    begin
+                        red = 3'b000;
+                        green = 3'b000;
+                        blue = 2'b11;
+                    end
+                    3'b011:
+                    begin
+                        red = 3'b111;
+                        green = 3'b111;
+                        blue = 2'b00;
+                    end
+                    3'b010:
+                    begin
+                        red = 3'b111;
+                        green = 3'b000;
+                        blue = 2'b11;
+                    end
+                endcase
+         
+				
 			end
             else 
             begin
-                red = 3'b000;
-                green = 3'b000;
-                blue = 2'b00;
+                case (cyclesneeded)
+                    3'b110:
+                    begin
+                        red = 3'b000;
+                        green = 3'b000;
+                        blue = 2'b00;
+                    end
+                    3'b101:
+                    begin
+                        red = 3'b111;
+                        green = 3'b000;
+                        blue = 2'b11;
+                    end
+                    3'b100:
+                    begin
+                        red = 3'b111;
+                        green = 3'b111;
+                        blue = 2'b00;
+                    end
+                    3'b011:
+                    begin
+                        red = 3'b000;
+                        green = 3'b000;
+                        blue = 2'b11;
+                    end
+                    3'b010:
+                    begin
+                        red = 3'b000;
+                        green = 3'b111;
+                        blue = 2'b00;
+                    end
+                endcase
             end
 		end
 		else
 		begin
-			red = 0;
-			green = 0;
-			blue = 0;
+			case (cyclesneeded)
+                    3'b110:
+                    begin
+                        red = 3'b000;
+                        green = 3'b000;
+                        blue = 2'b00;
+                    end
+                    3'b101:
+                    begin
+                        red = 3'b111;
+                        green = 3'b000;
+                        blue = 2'b11;
+                    end
+                    3'b100:
+                    begin
+                        red = 3'b111;
+                        green = 3'b111;
+                        blue = 2'b00;
+                    end
+                    3'b011:
+                    begin
+                        red = 3'b000;
+                        green = 3'b000;
+                        blue = 2'b11;
+                    end
+                    3'b010:
+                    begin
+                        red = 3'b000;
+                        green = 3'b111;
+                        blue = 2'b00;
+                    end
+                endcase
 		end
 	end
 	// we're outside active vertical range so display black

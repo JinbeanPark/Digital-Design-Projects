@@ -74,7 +74,6 @@ begin
 		4'b0111: segment = 7'b0001111;
 		4'b1000: segment = 7'b0000000;
 		4'b1001: segment = 7'b0000100;
-		4'b1111: segment = 7'b1111111; //case for display nothing
 		default: segment = 7'b0000001;
 	endcase
 end
