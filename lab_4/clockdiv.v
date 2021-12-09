@@ -38,6 +38,7 @@ begin
 	scoreclk = 0;
     gamecounter = 0;
     gameclk = 0;
+	q <= 0;
 end
 // Clock divider --
 // Each bit in q is a clock signal that is
