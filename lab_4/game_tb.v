@@ -1,35 +1,11 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   13:13:08 10/26/2021
-// Design Name:   clock
-// Module Name:   C:/Project/lab3/clock_TB.v
-// Project Name:  lab3
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: clock
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
-module clock_TB;
+module game_TB;
 	reg gameclk;
 	reg clr;
 	reg scoreclk;
 	reg clb;
 	reg [3:0] plrpos;
-
-
 
 	// Outputs
 	wire [8:0] barpos;
@@ -48,7 +24,6 @@ module clock_TB;
 		.timealive (timealive),
 		.lives (lives),
 		.plrpos (plrpos)
-	
 	);
 
 	initial begin
@@ -58,7 +33,6 @@ module clock_TB;
 		scoreclk = 0;
 		clb = 0;
 		plrpos = 3;
-
 
 		// Wait 100 ns for global reset to finish
 		#100;
