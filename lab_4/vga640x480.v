@@ -92,14 +92,6 @@ end
 assign hsync = (hc < hpulse) ? 0:1;
 assign vsync = (vc < vpulse) ? 0:1;
 
-// display 100% saturation colorbars
-// ------------------------
-// Combinational "always block", which is a block that is
-// triggered when anything in the "sensitivity list" changes.
-// The asterisk implies that everything that is capable of triggering the block
-// is automatically included in the sensitivty list.  In this case, it would be
-// equivalent to the following: always @(hc, vc)
-// Assignment statements can only be used on type "reg" and should be of the "blocking" type: =
 always @(*)
 begin
 	// first check if we're within vertical active video range
