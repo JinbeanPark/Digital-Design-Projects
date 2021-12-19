@@ -25,7 +25,7 @@ module tb;
       btnS = 0;
       #1000 btnR = 0;
       #1500000;
-      $readmemb("seq.code", instructs);  
+      $readmemb("inst", instructs);  
 	   for (i = 1; i < instructs[0] + 1; i = i + 1) 
 		begin
         tskRunInst(instructs[i]);
